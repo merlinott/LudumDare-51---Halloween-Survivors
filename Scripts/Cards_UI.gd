@@ -65,7 +65,7 @@ func add_cards():
 		upgrade_cards.append(blade_speed)
 		blade_equip = false
 	
-	if Global.level == 2:
+	if Global.level == 20:
 		upgrade_cards.append(bladestorm)
 	if bladestorm_equip == true:
 		upgrade_cards.append(bladestorm_speed)
