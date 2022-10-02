@@ -1,14 +1,18 @@
-[gd_scene load_steps=4 format=2]
+[gd_scene load_steps=6 format=2]
 
-[ext_resource path="res://Scenes/Room.tscn" type="PackedScene" id=1]
 [ext_resource path="res://Scenes/Card.tscn" type="PackedScene" id=2]
 [ext_resource path="res://Scripts/Cards_UI.gd" type="Script" id=3]
+[ext_resource path="res://Assets/UI/HPbar.jpg" type="Texture" id=4]
+[ext_resource path="res://Scripts/SceneChanger.gd" type="Script" id=5]
+[ext_resource path="res://Scenes/Main_Menu.tscn" type="PackedScene" id=6]
 
 [node name="SceneChanger" type="Node2D"]
+script = ExtResource( 5 )
 
-[node name="Room" parent="." instance=ExtResource( 1 )]
+[node name="Main_Menu" parent="." instance=ExtResource( 6 )]
 
 [node name="Cards UI" type="CanvasLayer" parent="."]
+visible = false
 script = ExtResource( 3 )
 
 [node name="HUD" type="Control" parent="Cards UI"]
@@ -19,8 +23,14 @@ margin_top = 1.0
 margin_right = -2.0
 margin_bottom = 1.0
 
-[node name="CardContainer" type="HBoxContainer" parent="Cards UI/HUD"]
+[node name="DEBUGLABEL" type="Label" parent="Cards UI/HUD"]
 visible = false
+margin_left = 8.0
+margin_top = 103.0
+margin_right = 1277.0
+margin_bottom = 511.0
+
+[node name="CardContainer" type="HBoxContainer" parent="Cards UI/HUD"]
 anchor_left = 0.5
 anchor_top = 1.0
 anchor_right = 0.5
@@ -53,16 +63,43 @@ margin_left = 208.0
 margin_right = 308.0
 margin_bottom = 150.0
 
-[node name="HBoxContainer" type="HBoxContainer" parent="Cards UI/HUD"]
+[node name="UI" type="VBoxContainer" parent="Cards UI/HUD"]
 anchor_left = 0.5
 anchor_right = 0.5
-margin_left = -20.0
-margin_right = 20.0
-margin_bottom = 40.0
+margin_left = -100.0
+margin_right = 100.0
+margin_bottom = 68.0
 
-[node name="Label" type="Label" parent="Cards UI/HUD/HBoxContainer"]
-margin_top = 13.0
-margin_bottom = 27.0
+[node name="TextureProgress" type="TextureProgress" parent="Cards UI/HUD/UI"]
+margin_right = 200.0
+margin_bottom = 20.0
+grow_horizontal = 2
+grow_vertical = 2
+rect_min_size = Vector2( 200, 20 )
+value = 100.0
+texture_under = ExtResource( 4 )
+texture_progress = ExtResource( 4 )
+tint_under = Color( 0.0156863, 0.0431373, 0.180392, 0.372549 )
+tint_progress = Color( 0, 1, 0.0156863, 1 )
+nine_patch_stretch = true
+
+[node name="Tween" type="Tween" parent="Cards UI/HUD/UI/TextureProgress"]
+
+[node name="HSeparator" type="HSeparator" parent="Cards UI/HUD/UI"]
+modulate = Color( 1, 1, 1, 0 )
+margin_top = 24.0
+margin_right = 200.0
+margin_bottom = 44.0
+rect_min_size = Vector2( 20, 20 )
+
+[node name="Label" type="Label" parent="Cards UI/HUD/UI"]
+margin_left = 100.0
+margin_top = 48.0
+margin_right = 100.0
+margin_bottom = 62.0
+grow_horizontal = 2
+grow_vertical = 2
+size_flags_horizontal = 4
 
 [connection signal="pressed" from="Cards UI/HUD/CardContainer/Card1" to="Cards UI" method="_on_Card1_pressed"]
 [connection signal="pressed" from="Cards UI/HUD/CardContainer/Card2" to="Cards UI" method="_on_Card2_pressed"]

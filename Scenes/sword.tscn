@@ -4,7 +4,7 @@
 [ext_resource path="res://sword.gd" type="Script" id=2]
 
 [sub_resource type="CircleShape2D" id=1]
-radius = 128.0
+radius = 198.645
 
 [sub_resource type="Animation" id=2]
 resource_name = "anim"
@@ -22,7 +22,7 @@ tracks/0/keys = {
 "values": [ 0.0, 360.0 ]
 }
 
-[node name="sword" type="Node2D"]
+[node name="sword" type="Node2D" groups=["sword"]]
 script = ExtResource( 2 )
 
 [node name="Sprite" type="Sprite" parent="."]
@@ -31,11 +31,11 @@ rotation = 4.68472
 texture = ExtResource( 1 )
 offset = Vector2( 800, 0 )
 
-[node name="sword" type="Area2D" parent="Sprite"]
+[node name="sword" type="Area2D" parent="Sprite" groups=["sword"]]
 position = Vector2( 0, -0.015625 )
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Sprite/sword"]
-position = Vector2( 888, 3.99985 )
+position = Vector2( 893.476, -4.26758 )
 shape = SubResource( 1 )
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="."]

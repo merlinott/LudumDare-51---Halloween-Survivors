@@ -1,5 +1,8 @@
 extends KinematicBody2D
+class_name Player
 
+
+var player_health
 
 var max_speed : float
 var acceleration : float = 20000
@@ -11,6 +14,8 @@ var bullet_cooldown
 
 onready var bullet_scene = preload("res://Scenes/bullet.tscn")
 onready var blade_scene = preload("res://Scenes/sword.tscn")
+onready var bladestorm_scene = preload("res://Scenes/blade_storm.tscn")
+
 var can_shoot = true
 	
 	
@@ -18,9 +23,17 @@ var enemy_array = []
 
 func _ready():
 	
-	Global.connect("blade_init", self, "equip_blade")
-	Global.connect("range_update", self, "range_visual")
+	set_health()
 	
+	Global.connect("damage", self, "on_base_damage")
+	Global.connect("blade_init", self, "equip_blade")
+	Global.connect("bladestorm_init", self, "equip_bladestorm")
+	Global.connect("range_update", self, "range_visual")
+	Global.connect("health_reset", self, "set_health")
+	
+func set_health():
+	player_health = Global.playerhealth
+	Global.emit_signal("update_health", player_health)
 	
 func _process(delta):
 	max_speed = Global.movement_speed
@@ -68,12 +81,11 @@ func apply_movement(ammount):
 func _on_Range_body_entered(body):
 	if body.is_in_group("enemy"):
 		enemy_array.append(body)
-		print(enemy_array)
 
 func _on_Range_body_exited(body):
 	if body.is_in_group("enemy"):
 		enemy_array.erase(body)
-		print(enemy_array)
+	
 
 func select_enemy():
 	var closest_position
@@ -112,13 +124,23 @@ func equip_blade():
 	var blade = blade_scene.instance()
 	add_child(blade)
 
+func equip_bladestorm():
+	var bladestorm = bladestorm_scene.instance()
+	add_child(bladestorm)
 
-func _on_hitbox_body_entered(body):
-	if body.is_in_group("enemy"):
-		queue_free()
 
 
 func range_visual():
 	$Range/Sprite.visible = true
 	yield(get_tree().create_timer(.2), "timeout")
 	$Range/Sprite.visible = false
+
+
+func on_base_damage(damage):
+	
+	player_health -= damage
+	if player_health <= 0:
+		Global.emit_signal("game_finished", false)
+
+	else:
+		Global.emit_signal("update_health", player_health)

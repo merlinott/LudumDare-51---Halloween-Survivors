@@ -3,6 +3,7 @@ extends Node2D
 var wave = 1
 
 onready var Mob = preload("res://Scenes/Enemy1.tscn")
+onready var timer = $Timer
 
 
 var player_pos = Vector2.ZERO
@@ -13,7 +14,8 @@ func _ready():
 
 func _process(delta):
 	player_pos = get_node("Player").position
-
+	Global.time = int(timer.time_left)
+	
 
 func _spawn_enemies(spawn: int) -> void:
 	for i in range(spawn):
