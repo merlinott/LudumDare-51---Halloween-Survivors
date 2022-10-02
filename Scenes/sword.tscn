@@ -50,7 +50,7 @@ offset = Vector2( -5, 2.01563 )
 position = Vector2( 0, -0.015625 )
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Node2D/Sprite/sword"]
-position = Vector2( -2.00006, -1.98438 )
+position = Vector2( -2, -1.98452 )
 shape = SubResource( 1 )
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="."]
