@@ -1,0 +1,43 @@
+[gd_scene load_steps=5 format=2]
+
+[ext_resource path="res://Assets/sword01.png" type="Texture" id=1]
+[ext_resource path="res://sword.gd" type="Script" id=2]
+
+[sub_resource type="CircleShape2D" id=1]
+radius = 128.0
+
+[sub_resource type="Animation" id=2]
+resource_name = "anim"
+loop = true
+tracks/0/type = "value"
+tracks/0/path = NodePath("Sprite:rotation_degrees")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0, 1 ),
+"transitions": PoolRealArray( 1, 1 ),
+"update": 0,
+"values": [ 0.0, 360.0 ]
+}
+
+[node name="sword" type="Node2D"]
+script = ExtResource( 2 )
+
+[node name="Sprite" type="Sprite" parent="."]
+position = Vector2( -2.73196e-09, 0.015625 )
+rotation = 4.68472
+texture = ExtResource( 1 )
+offset = Vector2( 800, 0 )
+
+[node name="sword" type="Area2D" parent="Sprite"]
+position = Vector2( 0, -0.015625 )
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Sprite/sword"]
+position = Vector2( 888, 3.99985 )
+shape = SubResource( 1 )
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
+playback_speed = 0.4
+anims/anim = SubResource( 2 )

@@ -1,0 +1,8 @@
+[gd_scene format=2]
+
+[node name="Card" type="TextureButton"]
+anchor_right = 1.0
+anchor_bottom = 1.0
+margin_right = -924.0
+margin_bottom = -450.0
+rect_min_size = Vector2( 100, 150 )
