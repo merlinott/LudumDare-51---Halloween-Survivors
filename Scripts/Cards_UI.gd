@@ -9,6 +9,8 @@ onready var clock_label = $HUD/UI/Time_Label
 onready var hp_bar_tween = $HUD/UI/TextureProgress/Tween
 onready var hp_bar = $HUD/UI/TextureProgress
 
+onready var score_label = $HUD/HBoxContainer/Score
+onready var highscore_label = $HUD/HBoxContainer/Highscore
 
 onready var blade = preload("res://Assets/Upgrade Cards/blade.png")
 onready var blade_speed = preload("res://Assets/Upgrade Cards/blade_speed.png")
@@ -65,6 +67,13 @@ func cards_init():
 	add_cards()
 
 func _process(delta):
+	
+	
+	# Score will be printet on labels
+	score_label.text = "SCORE: " + str(Global.score)
+	highscore_label.text = "HIGHSCORE: " + str(Global.highscore)
+	
+	
 	clock_label.text = str(Global.time)
 	if Global.time == 3:
 		clock_label.modulate = Color(255,0,0)

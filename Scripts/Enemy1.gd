@@ -83,4 +83,5 @@ func drop():
 	die()
 
 func die():
+	Global.score +=1
 	queue_free()

@@ -145,7 +145,7 @@ func on_base_damage(damage):
 	
 	player_health -= damage
 	if player_health <= 0:
-		Global.emit_signal("game_finished", false)
+		Global.emit_signal("game_finished")
 
 	else:
 		Global.emit_signal("update_health", player_health)

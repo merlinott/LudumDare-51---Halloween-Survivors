@@ -1,5 +1,6 @@
 extends Node
 
+signal back_to_menu
 signal cards
 signal lightning_init
 signal blade_init
@@ -22,6 +23,9 @@ var blade_speed: float
 var playerhealth: float
 var level: int
 
+var highscore = 0
+var score: int
+
 var time: int
 
 var spawn_lvl
@@ -29,8 +33,14 @@ var spawn_lvl
 
 func _ready():
 	set_stats()
-	
+
+
+func _process(delta):
+		
+	_set_score()
+		
 func set_stats():
+	
 	base_damage = 1
 	playerhealth = 100
 	blade_speed = .3
@@ -41,6 +51,12 @@ func set_stats():
 	level = 1 
 	spawn_lvl = 1
 	lightning_cooldown = 32
+	score = 0
 	
 	emit_signal("health_reset")
 	emit_signal("hpbar_update")
+
+
+func _set_score():
+	if score > highscore:
+		highscore = score

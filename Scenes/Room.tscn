@@ -95,7 +95,6 @@ current = true
 zoom = Vector2( 5, 5 )
 
 [node name="Timer" type="Timer" parent="."]
-wait_time = 10.0
 autostart = true
 
 [node name="Border" type="TileMap" parent="."]
