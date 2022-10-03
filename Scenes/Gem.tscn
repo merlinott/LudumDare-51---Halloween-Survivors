@@ -5,9 +5,7 @@
 [sub_resource type="CircleShape2D" id=1]
 radius = 20.0
 
-[node name="Gem" type="Area2D"]
-z_index = -5
-monitoring = false
+[node name="Gem" type="Area2D" groups=["gmes"]]
 
 [node name="Sprite" type="Sprite" parent="."]
 scale = Vector2( 0.1, 0.1 )

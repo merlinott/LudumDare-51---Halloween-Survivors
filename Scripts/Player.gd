@@ -144,3 +144,13 @@ func on_base_damage(damage):
 
 	else:
 		Global.emit_signal("update_health", player_health)
+
+
+func _on_collecting_radius_area_entered(area):
+	if "Gem" in area.name:
+		print("1")
+		if player_health < 100:
+			print("2")
+			player_health += 1
+			Global.emit_signal("update_health", player_health)
+			area.queue_free()
