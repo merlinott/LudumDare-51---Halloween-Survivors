@@ -13,7 +13,7 @@ func _ready():
 func load_main_menu():
 	$"Cards UI".visible = false
 	get_node("Main_Menu/VB/PLAY").connect("pressed", self, "on_new_game_pressed")
-	get_node("Main_Menu/VB/QUIT").connect("pressed", self, "on_quit_pressed")
+#	get_node("Main_Menu/VB/QUIT").connect("pressed", self, "on_quit_pressed")
 	
 	
 func on_new_game_pressed():

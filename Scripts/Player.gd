@@ -15,6 +15,7 @@ var bullet_cooldown
 onready var bullet_scene = preload("res://Scenes/bullet.tscn")
 onready var blade_scene = preload("res://Scenes/sword.tscn")
 onready var bladestorm_scene = preload("res://Scenes/blade_storm.tscn")
+onready var lightning_scene = preload("res://Scenes/LightningManager.tscn")
 
 var can_shoot = true
 	
@@ -28,6 +29,7 @@ func _ready():
 	Global.connect("damage", self, "on_base_damage")
 	Global.connect("blade_init", self, "equip_blade")
 	Global.connect("bladestorm_init", self, "equip_bladestorm")
+	Global.connect("lightning_init", self, "equip_lightning")
 	Global.connect("range_update", self, "range_visual")
 	Global.connect("health_reset", self, "set_health")
 	
@@ -128,6 +130,9 @@ func equip_bladestorm():
 	var bladestorm = bladestorm_scene.instance()
 	add_child(bladestorm)
 
+func equip_lightning():
+	var lightning = lightning_scene.instance()
+	add_child(lightning)
 
 
 func range_visual():
@@ -149,7 +154,7 @@ func on_base_damage(damage):
 func _on_collecting_radius_area_entered(area):
 	if "Gem" in area.name:
 		print("1")
-		if player_health < 100:
+		if player_health < Global.playerhealth:
 			print("2")
 			player_health += 1
 			Global.emit_signal("update_health", player_health)

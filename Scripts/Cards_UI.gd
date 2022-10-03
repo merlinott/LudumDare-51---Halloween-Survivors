@@ -5,29 +5,40 @@ onready var card1 = $HUD/CardContainer/Card1
 onready var card2 = $HUD/CardContainer/Card2
 onready var card3 = $HUD/CardContainer/Card3
 
-onready var clock_label = $HUD/UI/Label
+onready var clock_label = $HUD/UI/Time_Label
 onready var hp_bar_tween = $HUD/UI/TextureProgress/Tween
 onready var hp_bar = $HUD/UI/TextureProgress
 
 
-onready var gun_cooldown = preload("res://Assets/Upgrade Cards/GunCooldown.png")
-onready var movement_speed = preload("res://Assets/Upgrade Cards/MovementSpeed.png")
-onready var gun_range = preload("res://Assets/Upgrade Cards/Range.png")
 onready var blade = preload("res://Assets/Upgrade Cards/blade.png")
 onready var blade_speed = preload("res://Assets/Upgrade Cards/blade_speed.png")
+
+onready var gun_cooldown = preload("res://Assets/Upgrade Cards/GunCooldown.png")
+onready var gun_range = preload("res://Assets/Upgrade Cards/Range.png")
+
+
 onready var bladestorm = preload("res://Assets/Upgrade Cards/bladestorm.png")
 onready var bladestorm_speed = preload("res://Assets/Upgrade Cards/bladestorm_cd.png")
+
+onready var lightning = preload("res://Assets/Upgrade Cards/lightning.png")
+onready var lightning_recharge = preload("res://Assets/Upgrade Cards/lightning_recharge.png")
+
+onready var max_health = preload("res://Assets/Upgrade Cards/health.png")
+onready var base_damage = preload("res://Assets/Upgrade Cards/base_damage.png")
+onready var movement_speed = preload("res://Assets/Upgrade Cards/MovementSpeed.png")
 
 var upgrade_cards = []
 
 
 var blade_equip = false
 var bladestorm_equip = false
+var lightning_equip = false
 
 func _ready():
 	Global.connect("card_reset", self, "update_cards")
 	Global.connect("cards",self,"open_cards")
 	Global.connect("update_health", self, "update_health_bar")
+	Global.connect("hpbar_update", self, "reset_hp_bar")
 	
 	cards_init()
 	
@@ -36,19 +47,36 @@ func cards_init():
 	upgrade_cards.append(gun_cooldown)
 	upgrade_cards.append(gun_cooldown)
 	upgrade_cards.append(gun_cooldown)
-	
+
+
 	upgrade_cards.append(movement_speed)
 	upgrade_cards.append(movement_speed)
 	upgrade_cards.append(movement_speed)
-	
+
+
 	upgrade_cards.append(gun_range)
 	upgrade_cards.append(gun_range)
 	upgrade_cards.append(gun_range)
+
+
+	upgrade_cards.append(base_damage)
+	upgrade_cards.append(max_health)
 	
 	add_cards()
 
 func _process(delta):
 	clock_label.text = str(Global.time)
+	if Global.time == 3:
+		clock_label.modulate = Color(255,0,0)
+	elif Global.time == 2:
+		clock_label.modulate = Color(255,0,0)
+	elif Global.time == 1:
+		clock_label.modulate = Color(255,0,0)
+	elif Global.time == 0:
+		clock_label.modulate = Color(255,0,0)
+	
+	else:
+		clock_label.modulate = Color(255,255,255)
 	$HUD/DEBUGLABEL.text = "attack range: "+str(Global.attack_range) +", speed: "+ str(Global.movement_speed) +", bulletCD: "+ str(Global.bullet_cooldown) +", blade_speed: "+ str(Global.blade_speed) +", playerhealth: "+ str(Global.playerhealth) +", level: "+ str(Global.level) +", time: "+ str(Global.time) +", spawn_level: "+ str(Global.spawn_lvl)
 
 func add_cards():
@@ -71,8 +99,15 @@ func add_cards():
 		upgrade_cards.append(bladestorm_speed)
 		bladestorm_equip = false
 		
+	if Global.level == 30:
+		upgrade_cards.append(lightning)
+	if lightning_equip == true:
+		upgrade_cards.append(lightning_recharge)
+		lightning_equip = false
+		
 func _on_Card1_pressed():
 	$HUD/CardContainer.visible = false
+	
 	if  card1.texture_normal == gun_cooldown:
 		Global.bullet_cooldown /= 1.1
 		
@@ -98,10 +133,27 @@ func _on_Card1_pressed():
 		upgrade_cards.erase(bladestorm)
 		
 	if  card1.texture_normal == blade_speed:
-		Global.bladestorm_speed *= 1.125
+		Global.bladestorm_speed /= 1.1
+		
+	if  card1.texture_normal == lightning:
+		Global.emit_signal("lightning_init")
+		lightning_equip = true
+		upgrade_cards.erase(lightning)
+		
+	if  card1.texture_normal == lightning_recharge:
+		Global.lightning_cooldown /= 1.1
+		
+	if  card1.texture_normal == base_damage:
+		Global.base_damage *= 1.25
+		
+	if  card1.texture_normal == max_health:
+		Global.playerhealth += 5
+		hp_bar.max_value = Global.playerhealth
+		print (hp_bar.max_value)
 		
 func _on_Card2_pressed():
 	$HUD/CardContainer.visible = false
+	
 	if  card2.texture_normal == gun_cooldown:
 		Global.bullet_cooldown /= 1.1
 		
@@ -128,8 +180,25 @@ func _on_Card2_pressed():
 	if  card2.texture_normal == blade_speed:
 		Global.bladestorm_speed *= 1.125
 		
+	if  card2.texture_normal == lightning:
+		Global.emit_signal("lightning_init")
+		lightning_equip = true
+		upgrade_cards.erase(lightning)
+		
+	if  card2.texture_normal == lightning_recharge:
+		Global.lightning_cooldown /= 1.1
+	
+	if  card2.texture_normal == base_damage:
+		Global.base_damage *= 1.25
+		
+	if  card2.texture_normal == max_health:
+		Global.playerhealth += 5
+		hp_bar.max_value = Global.playerhealth
+		print (hp_bar.max_value)
+		
 func _on_Card3_pressed():
 	$HUD/CardContainer.visible = false
+	
 	if  card3.texture_normal == gun_cooldown:
 		Global.bullet_cooldown /= 1.1
 		
@@ -155,7 +224,23 @@ func _on_Card3_pressed():
 		upgrade_cards.erase(bladestorm)
 		
 	if  card3.texture_normal == blade_speed:
-		Global.bladestorm_speed *= 1.125
+		Global.bladestorm_speed /= 1.1
+		
+	if  card3.texture_normal == lightning:
+		Global.emit_signal("lightning_init")
+		lightning_equip = true
+		upgrade_cards.erase(lightning)
+		
+	if  card3.texture_normal == lightning_recharge:
+		Global.lightning_cooldown /= 1.1
+		
+	if  card3.texture_normal == base_damage:
+		Global.base_damage *= 1.25
+		
+	if  card3.texture_normal == max_health:
+		Global.playerhealth += 5
+		hp_bar.max_value = Global.playerhealth
+		print (hp_bar.max_value)
 		
 func open_cards():
 	add_cards()
@@ -165,6 +250,9 @@ func open_cards():
 func update_cards():
 	upgrade_cards.clear()
 	cards_init()
+
+func reset_hp_bar():
+	hp_bar.max_value = Global.playerhealth
 
 func update_health_bar(player_health):
 	

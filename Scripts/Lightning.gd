@@ -9,6 +9,9 @@ func _ready():
 	shoot()
 
 
+func _physics_process(delta):
+	$Timer.wait_time = Global.lightning_cooldown
+
 func shoot():
 	
 	for i in range(25):
@@ -19,8 +22,6 @@ func shoot():
 		$shoottimer.wait_time = rand_range(0.01, 0.15)
 		$shoottimer.start()
 		yield($shoottimer, "timeout")
-
-
 
 
 func _on_Timer_timeout():

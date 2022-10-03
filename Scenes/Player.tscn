@@ -1,10 +1,9 @@
-[gd_scene load_steps=10 format=2]
+[gd_scene load_steps=9 format=2]
 
 [ext_resource path="res://Scripts/Player.gd" type="Script" id=1]
 [ext_resource path="res://Assets/player.png" type="Texture" id=2]
 [ext_resource path="res://Assets/darknes.png" type="Texture" id=3]
 [ext_resource path="res://Assets/range_line.png" type="Texture" id=4]
-[ext_resource path="res://Scenes/LightningManager.tscn" type="PackedScene" id=5]
 
 [sub_resource type="CircleShape2D" id=2]
 radius = 1000.0
@@ -30,16 +29,14 @@ radius = 92.0
 height = 109.0
 
 [sub_resource type="CapsuleShape2D" id=5]
-radius = 111.0
-height = 0.0
+radius = 99.0
+height = 164.0
 
 [node name="Player" type="KinematicBody2D"]
 z_index = 1
 collision_layer = 3
 collision_mask = 3
 script = ExtResource( 1 )
-
-[node name="LightningManager" parent="." instance=ExtResource( 5 )]
 
 [node name="Range" type="Area2D" parent="."]
 
@@ -70,7 +67,7 @@ shape = SubResource( 4 )
 [node name="collecting_radius" type="Area2D" parent="." groups=["hitbox"]]
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="collecting_radius"]
-position = Vector2( 0, 56 )
+position = Vector2( -6, 13 )
 shape = SubResource( 5 )
 
 [connection signal="body_entered" from="Range" to="." method="_on_Range_body_entered"]
