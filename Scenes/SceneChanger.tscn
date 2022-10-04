@@ -48,9 +48,9 @@ anchor_left = 0.5
 anchor_top = 1.0
 anchor_right = 0.5
 anchor_bottom = 1.0
-margin_left = -154.0
-margin_top = -150.0
-margin_right = 154.0
+margin_left = -244.0
+margin_top = -224.0
+margin_right = 244.0
 rect_min_size = Vector2( 100, 150 )
 size_flags_horizontal = 5
 size_flags_vertical = 5
@@ -59,22 +59,25 @@ alignment = 1
 [node name="Card1" parent="Cards UI/HUD/CardContainer" instance=ExtResource( 2 )]
 anchor_right = 0.0
 anchor_bottom = 0.0
-margin_right = 100.0
-margin_bottom = 150.0
+margin_right = 160.0
+margin_bottom = 224.0
+rect_min_size = Vector2( 160, 224 )
 
 [node name="Card2" parent="Cards UI/HUD/CardContainer" instance=ExtResource( 2 )]
 anchor_right = 0.0
 anchor_bottom = 0.0
-margin_left = 104.0
-margin_right = 204.0
-margin_bottom = 150.0
+margin_left = 164.0
+margin_right = 324.0
+margin_bottom = 224.0
+rect_min_size = Vector2( 160, 224 )
 
 [node name="Card3" parent="Cards UI/HUD/CardContainer" instance=ExtResource( 2 )]
 anchor_right = 0.0
 anchor_bottom = 0.0
-margin_left = 208.0
-margin_right = 308.0
-margin_bottom = 150.0
+margin_left = 328.0
+margin_right = 488.0
+margin_bottom = 224.0
+rect_min_size = Vector2( 160, 224 )
 
 [node name="UI" type="VBoxContainer" parent="Cards UI/HUD"]
 anchor_left = 0.5
@@ -121,25 +124,30 @@ margin_right = 40.0
 margin_bottom = 40.0
 
 [node name="-----" type="Label" parent="Cards UI/HUD/HBoxContainer"]
+margin_top = 13.0
 margin_right = 40.0
-margin_bottom = 14.0
+margin_bottom = 27.0
 text = "          "
 
 [node name="Score" type="Label" parent="Cards UI/HUD/HBoxContainer"]
-margin_left = 4.0
-margin_top = 13.0
-margin_right = 4.0
-margin_bottom = 37.0
+margin_left = 44.0
+margin_top = 8.0
+margin_right = 44.0
+margin_bottom = 32.0
 custom_fonts/font = SubResource( 4 )
 
 [node name="-------" type="Label" parent="Cards UI/HUD/HBoxContainer"]
-margin_right = 40.0
-margin_bottom = 14.0
+margin_left = 48.0
+margin_top = 13.0
+margin_right = 88.0
+margin_bottom = 27.0
 text = "          "
 
 [node name="Highscore" type="Label" parent="Cards UI/HUD/HBoxContainer"]
-margin_top = 13.0
-margin_bottom = 37.0
+margin_left = 92.0
+margin_top = 8.0
+margin_right = 92.0
+margin_bottom = 32.0
 custom_fonts/font = SubResource( 3 )
 
 [connection signal="pressed" from="Cards UI/HUD/CardContainer/Card1" to="Cards UI" method="_on_Card1_pressed"]

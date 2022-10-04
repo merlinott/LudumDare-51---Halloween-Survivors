@@ -18,7 +18,7 @@ func load_main_menu():
 	
 func on_new_game_pressed():
 	Global.emit_signal("card_reset")
-	Global.set_stats()
+	
 	get_node("Main_Menu").queue_free()
 	var game_scene = gamescene1.instance()
 	
@@ -38,6 +38,7 @@ func unload_game():
 	load_main_menu()
 	
 func ending_scene():
+
 	$"Cards UI".visible = false
 	get_node("Room").queue_free()
 	var endscene = end_scene.instance()

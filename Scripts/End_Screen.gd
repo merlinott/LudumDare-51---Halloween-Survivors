@@ -14,3 +14,4 @@ func endscreen_text():
 func _process(delta):
 	if Input.is_action_just_pressed("LMB"):
 		Global.emit_signal("back_to_menu")
+		Global.set_stats()

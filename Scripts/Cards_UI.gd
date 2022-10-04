@@ -47,23 +47,11 @@ func _ready():
 	
 func cards_init():
 	upgrade_cards.append(gun_cooldown)
-	upgrade_cards.append(gun_cooldown)
-	upgrade_cards.append(gun_cooldown)
-
-
 	upgrade_cards.append(movement_speed)
-	upgrade_cards.append(movement_speed)
-	upgrade_cards.append(movement_speed)
-
-
 	upgrade_cards.append(gun_range)
-	upgrade_cards.append(gun_range)
-	upgrade_cards.append(gun_range)
-
-
 	upgrade_cards.append(base_damage)
 	upgrade_cards.append(max_health)
-	
+	upgrade_cards.shuffle()
 	add_cards()
 
 func _process(delta):

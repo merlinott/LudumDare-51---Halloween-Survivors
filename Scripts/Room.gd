@@ -18,10 +18,12 @@ func _process(delta):
 	
 
 func _spawn_enemies(spawn: int) -> void:
+	
 	for i in range(spawn):
 		var new_mob = Mob.instance()
 		new_mob.global_position = _get_random_spawn_position()
 		add_child(new_mob)
+
 
 func _get_random_spawn_position() -> Vector2:
 	randomize()
@@ -36,7 +38,11 @@ func _on_Timer_timeout():
 	_spawn_enemies(wave)
 	Global.emit_signal("cards")
 	Global.level += 1
-	if Global.level == 3:
+	if Global.level == 5:
+		Global.spawn_lvl += 1
+	if Global.level == 20:
+		Global.spawn_lvl += 1
+	if Global.level == 30:
 		Global.spawn_lvl += 1
 	
 
