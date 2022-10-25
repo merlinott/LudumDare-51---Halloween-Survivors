@@ -108,7 +108,7 @@ func drop():
 	
 	if chance == 1:
 		gem.position = position
-		get_parent().get_node("Gems").call_deferred("add_child", gem)
+		get_parent().get_parent().get_node("Gems").call_deferred("add_child", gem)
 	
 	yield(get_tree(),"idle_frame")
 	die()

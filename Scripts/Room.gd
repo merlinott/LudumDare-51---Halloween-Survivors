@@ -5,6 +5,7 @@ var wave = 1
 onready var Mob = preload("res://Scenes/Enemy1.tscn")
 onready var timer = $Timer
 
+var mob_array = []
 
 var player_pos = Vector2.ZERO
 var safe_range = 30000
@@ -15,14 +16,16 @@ func _ready():
 func _process(delta):
 	player_pos = get_node("Player").position
 	Global.time = int(timer.time_left)
-	
+	print ($Enemies.get_children().size())
 
 func _spawn_enemies(spawn: int) -> void:
 	
-	for i in range(spawn):
-		var new_mob = Mob.instance()
-		new_mob.global_position = _get_random_spawn_position()
-		add_child(new_mob)
+	
+	if $Enemies.get_children().size() + spawn <= 100:
+		for i in range(spawn):
+			var new_mob = Mob.instance()
+			new_mob.global_position = _get_random_spawn_position()
+			$Enemies.add_child(new_mob)
 
 
 func _get_random_spawn_position() -> Vector2:
