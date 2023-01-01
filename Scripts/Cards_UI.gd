@@ -122,7 +122,7 @@ func _on_Card1_pressed():
 		upgrade_cards.erase(blade)
 		
 	if  card1.texture_normal == blade_speed:
-		Global.blade_speed *= 1.125
+		Global.blade_speed /= 1.125
 		
 	if  card1.texture_normal == bladestorm:
 		Global.emit_signal("bladestorm_init")
